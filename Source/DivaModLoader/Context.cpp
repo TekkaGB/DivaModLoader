@@ -2,6 +2,7 @@
 
 #include "CodeLoader.h"
 #include "ModLoader.h"
+#include "FileLogger.h"
 #include "Patches.h"
 #include "SigScan.h"
 
@@ -28,6 +29,7 @@ void Context::initCore()
     Patches::init();
     ModLoader::init();
     CodeLoader::init();
+    FileLogger::init();
 }
 
 void Context::init()

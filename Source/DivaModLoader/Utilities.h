@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <regex>
 
 /// Removes directories that don't exist, and tries to make their paths relative if they are contained within the current directory.
 inline void processDirectoryPaths(std::vector<std::string>& directoryPaths, const bool reverse)
@@ -53,6 +54,14 @@ inline void processFilePaths(std::vector<std::wstring>& filePaths, const bool re
         std::reverse(newFilePaths.begin(), newFilePaths.end());
 
     std::swap(filePaths, newFilePaths);
+}
+
+/// Formats file path for logging.
+inline const wchar_t* processFilePath(const wchar_t* filePath)
+{
+    std::wstring newPath = std::regex_replace(filePath, std::wregex(L"\\./"), L"/");
+    newPath = std::regex_replace(newPath, std::wregex(L"(/+)"), L"/");
+    return newPath.c_str();
 }
 
 inline std::wstring convertMultiByteToWideChar(const std::string& value)
